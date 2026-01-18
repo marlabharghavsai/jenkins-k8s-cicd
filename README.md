@@ -292,3 +292,33 @@ Jenkins uses the Kubernetes plugin to dynamically provision build agents as pods
 - Maven agent for build & tests
 - Docker agent for image creation
 Agents are created on demand and destroyed after job completion.
+
+
+
+## Jenkins UI Note (Local Environment Limitation)
+Note on Jenkins UI Access During Demo Recording
+
+- During the final stage of this project, the Jenkins controller pod encountered a local environment issue on my laptop related to Docker Desktop / WSL2 resource constraints while using Helm-based Jenkins deployment with persistent volumes.
+As a result, the Jenkins UI could not be accessed reliably for screen recording at the time of demo video creation.
+
+- This issue is environment-specific and not related to the Jenkinsfile, pipeline logic, or Kubernetes configuration provided in this repository.
+
+### The CI/CD pipeline was previously executed successfully, demonstrating:
+
+- Dynamic Kubernetes agent provisioning
+- Multi-stage pipeline execution
+- SonarQube quality gate enforcement
+- Docker image build and push to Nexus
+- Trivy security scan stage
+- Automated staging deployment
+- Manual approval gate
+- Blue–green production deployment strategy
+
+On a fresh Kubernetes cluster or another machine, Jenkins starts normally using the same Helm chart and configuration, and the pipeline runs as expected.
+
+- To ensure clarity, this repository includes:
+- A complete Jenkinsfile (Pipeline as Code)
+- All Kubernetes manifests used for deployment
+- Architecture diagram illustrating the CI/CD flow
+- Detailed documentation explaining each stage of the pipeline
+
