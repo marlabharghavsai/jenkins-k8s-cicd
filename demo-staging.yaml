@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-staging
+  namespace: demo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: demo
+      env: staging
+  template:
+    metadata:
+      labels:
+        app: demo
+        env: staging
+    spec:
+      containers:
+      - name: demo
+        image: nginx:latest   # placeholder
+        ports:
+        - containerPort: 8080
