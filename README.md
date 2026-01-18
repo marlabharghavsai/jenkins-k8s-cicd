@@ -14,13 +14,13 @@
 ### Components
 ```
 Component                 	             Purpose
-Jenkins	                            CI/CD orchestration
-Kubernetes	                        Runtime platform & dynamic agents
+Jenkins	                              CI/CD orchestration
+Kubernetes	                          Runtime platform & dynamic agents
 Jenkins Kubernetes Plugin	          Dynamic agent provisioning
 SonarQube	                          Static code analysis & quality gates
 Nexus	                              Docker image registry
 Trivy	                              Container vulnerability scanning
-GitHub	                            Source code management
+GitHub	                              Source code management
 Demo App	                          Sample application
 ```
 
