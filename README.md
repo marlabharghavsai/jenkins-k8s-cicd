@@ -212,7 +212,10 @@ jenkins-k8s-cicd/
 ├── demo-blue.yaml
 ├── demo-green.yaml
 ├── demo-prod-svc.yaml
-└── demo-staging.yaml
+├── demo-staging.yaml
+│
+└── docs/
+   └── architecture-diagram.png
 ```
 
 ## Tech Stack
