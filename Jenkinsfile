@@ -22,7 +22,10 @@ pipeline {
       steps {
         container('maven') {
           dir('app/demo') {
-            sh './mvnw clean test'
+            sh '''
+              chmod +x mvnw
+              ./mvnw clean test
+            '''
           }
         }
       }
@@ -35,10 +38,11 @@ pipeline {
           withSonarQubeEnv("${SONARQUBE_SERVER}") {
             dir('app/demo') {
               sh '''
-              ./mvnw sonar:sonar \
-                -Dsonar.projectKey=demo \
-                -Dsonar.projectName=demo \
-                -Dsonar.java.binaries=target
+                chmod +x mvnw
+                ./mvnw sonar:sonar \
+                  -Dsonar.projectKey=demo \
+                  -Dsonar.projectName=demo \
+                  -Dsonar.java.binaries=target
               '''
             }
           }
@@ -66,9 +70,9 @@ pipeline {
           )]) {
             dir('app/demo') {
               sh '''
-              docker login ${REGISTRY} -u $NEXUS_USER -p $NEXUS_PASS
-              docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .
-              docker push ${IMAGE_NAME}:${BUILD_NUMBER}
+                docker login ${REGISTRY} -u $NEXUS_USER -p $NEXUS_PASS
+                docker build -t ${IMAGE_NAME}:${BUILD_NUMBER} .
+                docker push ${IMAGE_NAME}:${BUILD_NUMBER}
               '''
             }
           }
@@ -80,10 +84,10 @@ pipeline {
 
   post {
     success {
-      echo "Pipeline completed successfully"
+      echo "✅ Pipeline completed successfully"
     }
     failure {
-      echo "Pipeline failed"
+      echo "❌ Pipeline failed"
     }
   }
 }
