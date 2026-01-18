@@ -231,6 +231,62 @@ jenkins-k8s-cicd/
 - Staging (Auto Deploy)
 - Production (Manual Approval + Blue-Green)
 
+## Kubernetes RBAC Configuration for Jenkins
+- This project follows Kubernetes Role-Based Access Control (RBAC) best practices to ensure Jenkins has only the minimum required permissions to operate.
+
+### Jenkins Service Account
+- Jenkins runs inside the Kubernetes cluster using a dedicated ServiceAccount:
+```
+kubectl get serviceaccount -n jenkins
+```
+- This ServiceAccount is used by Jenkins controller and dynamically created agent pods.
+
+## Permissions Scope
+### Jenkins requires permissions to:
+- Create and delete build agent pods
+- Read pod logs
+- Deploy applications to Kubernetes
+- Update Deployments and Services for blue-green deployments
+### All permissions are namespace-scoped and restricted to only required API resources.
+
+## RBAC Role Example
+```
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: jenkins-deployer
+  namespace: demo
+rules:
+- apiGroups: ["apps"]
+  resources: ["deployments"]
+  verbs: ["get", "list", "watch", "update", "patch"]
+- apiGroups: [""]
+  resources: ["pods", "services"]
+  verbs: ["get", "list", "watch", "create", "delete", "patch"]
+```
+## RoleBinding Example
+```
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: jenkins-deployer-binding
+  namespace: demo
+subjects:
+- kind: ServiceAccount
+  name: jenkins
+  namespace: jenkins
+roleRef:
+  kind: Role
+  name: jenkins-deployer
+  apiGroup: rbac.authorization.k8s.io
+```
+## Security Best Practices
+- Jenkins uses least-privilege RBAC
+- No cluster-admin access is granted
+- All permissions are restricted to required namespaces
+- Secrets are managed via Jenkins Credentials
+- This ensures secure and controlled CI/CD operations inside Kubernetes.
+
 ## Dynamic Jenkins Agents
 Jenkins uses the Kubernetes plugin to dynamically provision build agents as pods.
 - Maven agent for build & tests
