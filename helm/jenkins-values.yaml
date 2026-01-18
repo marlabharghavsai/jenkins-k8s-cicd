@@ -1,0 +1,30 @@
+controller:
+  serviceAccount:
+    create: true
+    name: jenkins
+
+  persistence:
+    enabled: true
+    size: 8Gi
+
+  serviceType: NodePort
+
+  resources:
+    requests:
+      cpu: "500m"
+      memory: "1Gi"
+    limits:
+      cpu: "1"
+      memory: "2Gi"
+
+  installPlugins:
+    - kubernetes
+    - workflow-aggregator
+    - git
+    - docker-workflow
+    - credentials-binding
+    - sonar
+    - blueocean
+
+agent:
+  enabled: true
