@@ -21,3 +21,9 @@ Build an enterprise-grade CI/CD pipeline using Jenkins running on Kubernetes wit
 ## Environments
 - Staging (Auto Deploy)
 - Production (Manual Approval + Blue-Green)
+
+## Dynamic Jenkins Agents
+Jenkins uses the Kubernetes plugin to dynamically provision build agents as pods.
+- Maven agent for build & tests
+- Docker agent for image creation
+Agents are created on demand and destroyed after job completion.
