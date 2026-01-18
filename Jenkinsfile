@@ -39,10 +39,10 @@ pipeline {
             dir('app/demo') {
               sh '''
                 chmod +x mvnw
-                ./mvnw sonar:sonar \
+                ./mvnw verify \
+                  org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar \
                   -Dsonar.projectKey=demo \
-                  -Dsonar.projectName=demo \
-                  -Dsonar.java.binaries=target
+                  -Dsonar.projectName=demo
               '''
             }
           }
