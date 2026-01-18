@@ -183,18 +183,36 @@ localhost:30083/docker-hosted/demo:<BUILD_NUMBER>
 
 ## Repository Structure
 ```
-jenkins-k8s-cicd
-├── Jenkinsfile
-├── README.md
+jenkins-k8s-cicd/
 ├── app/
 │   └── demo/
-├── k8s/
-│   ├── demo-staging.yaml
-│   ├── demo-blue.yaml
-│   ├── demo-green.yaml
-│   └── demo-prod-service.yaml
+│       ├── .mvn/wrapper/
+│       ├── src/
+│       │   ├── main/java/com/example/demo
+│       │   └── test/java/com/example/demo
+│       ├── .gitattributes
+│       ├── .gitignore
+│       ├── Dockerfile
+│       ├── mvnw
+│       ├── mvnw.cmd
+│       └── pom.xml
+│
 ├── helm/
 │   └── jenkins-values.yaml
+│
+├── k8s/
+│   ├── jenkins-rbac.yaml
+│   ├── namespaces.yaml
+│   ├── nexus.yaml
+│   └── sonarqube.yaml
+│
+├── Jenkinsfile
+├── README.md
+│
+├── demo-blue.yaml
+├── demo-green.yaml
+├── demo-prod-svc.yaml
+└── demo-staging.yaml
 ```
 
 ## Tech Stack
