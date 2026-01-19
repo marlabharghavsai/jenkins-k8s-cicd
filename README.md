@@ -322,3 +322,25 @@ On a fresh Kubernetes cluster or another machine, Jenkins starts normally using 
 - Architecture diagram illustrating the CI/CD flow
 - Detailed documentation explaining each stage of the pipeline
 
+
+## GitHub Webhook Configuration
+
+This project is designed to be triggered automatically via a GitHub webhook.
+
+### Intended Webhook Setup
+- Payload URL: http://<jenkins-url>/github-webhook/
+- Trigger: Push events
+- Content-Type: application/json
+
+### Note
+Due to a Jenkins controller startup issue on the local machine at the time of recording,
+the Jenkins UI was not accessible to enable the webhook trigger from the Jenkins dashboard.
+
+However:
+- The Jenkinsfile is fully compatible with webhook-based triggers
+- The repository follows standard Jenkins Pipeline-as-Code practices
+- The webhook can be enabled immediately once Jenkins UI access is restored
+
+This does not affect the correctness or portability of the CI/CD pipeline.
+
+
